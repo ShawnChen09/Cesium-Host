@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cesium ion Asset Viewer</title>
+    <script src="https://cesium.com/downloads/cesiumjs/releases/1.122/Build/Cesium/Cesium.js"></script>
+    <link href="https://cesium.com/downloads/cesiumjs/releases/1.122/Build/Cesium/Widgets/widgets.css" rel="stylesheet">
+    <style>
+        html, body, #cesiumContainer {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="cesiumContainer"></div>
+
+    <!-- Note the type="module" which allows top-level await -->
+    <script type="module">
+        // 1. Set your token
+        Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub25jZSI6ImJ1c0FXQkcyUGVSem9WVC0iLCJqdGkiOiI3ODBkZGU5ZS04ZGMwLTQ2ZDUtYWE3NS1mMzc0YjVhNmY5N2UiLCJpZCI6NDc5NTAxLCJpc3MiOiJodHRwczovL2FwaS5jZXNpdW0uY29tIiwiYXVkIjoidW5kZWZpbmVkX2RlZmF1bHQiLCJpYXQiOjE3ODg0MDY0OTl9.Q3v5uifhCUz38ZClLUek_PmCLZe4Ml-n3dWPEH3z7lQ';
+
+        // 2. Initialize the Viewer
+        const viewer = new Cesium.Viewer('cesiumContainer');
+
+        try {
+            // 3. Load your asset using modern async/await
+            const tileset = viewer.scene.primitives.add(
+                await Cesium.Cesium3DTileset.fromIonAssetId(2275207),
+            );
+
+            // 4. Zoom camera to the loaded asset
+            // await viewer.zoomTo(tileset);
+            
+        } catch (error) {
+            console.error(`Error loading tileset: ${error}`);
+        }
+    </script>
+</body>
+</html>
